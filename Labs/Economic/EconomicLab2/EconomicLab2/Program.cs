@@ -197,7 +197,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getZstr (double D, int T)
         {
-            return D * T;
+            double result = D * T;
+            Console.WriteLine("3стр=Д*Тз.п="+D+"*"+T+"="+result);
+            return result;
         }
         /// <summary>
         /// фактична/планова денна потреба пiдприємства у певному матерiалi
@@ -206,7 +208,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getD(double mTotal)
         {
-            return mTotal / 360;
+            double result = mTotal / 360;
+            Console.WriteLine("Д=Мс.ф/360=" + mTotal + "/360" + "=" + result);
+            return result;
         }
         /// <summary>
         /// Сумарна потреба пiдприємства в певному матерiалi у натуральних одиницях
@@ -221,6 +225,7 @@ namespace EconomicLab2
             {
                 nqSum += N[i]*q[i];
             }
+            Console.WriteLine(String.Format("Мс.ф.=Сумма(1:{0})Ni*qi={1}", N.Length,nqSum));
             return nqSum;
         }
         /// <summary>
@@ -231,7 +236,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getQz(double qClear,double kM)
         {
-            return qClear / kM;
+            double result = qClear / kM;
+            Console.WriteLine(String.Format("qзi=qч/Kм={0}/{1}={2}",qClear,kM,result));
+            return result;
         }
         /// <summary>
         /// поточний запас матерiалу − для забезпечення безпере­бiйного процесу
@@ -242,7 +249,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getZpot(double Df, double Tpost)
         {
-            return Df * Tpost;
+            double result = Df * Tpost;
+            Console.WriteLine(String.Format("Зпот=Дф*Тпост={0}*{1}={2}", Df, Tpost, result));
+            return result;
         }
         /// <summary>
         /// середнiй запас матерiалу
@@ -252,7 +261,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getZser( double Zpot, double Zstr)
         {
-            return Zstr + 0.5 * Zpot;
+            double result = Zstr + 0.5 * Zpot;
+            Console.WriteLine(String.Format("Зсер=Зстр+0.5*Зпот={0}+0.5*{1}={2}", Zstr, Zpot, result));
+            return result;
         }
         /// <summary>
         /// максимальний запас матерiалу
@@ -262,7 +273,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getZMax(double Zpot, double Zstr)
         {
-            return Zpot + Zstr;
+            double result = Zpot + Zstr;
+            Console.WriteLine(String.Format("Змакс=Зпот+Зстр.ф={0}+{1}={2}", Zpot, Zstr, result));
+            return result;
         }
         /// <summary>
         /// Загальна матерiалоємнiсть
@@ -272,7 +285,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getMe(double Mz, double Qp)
         {
-            return Mz / Qp;
+            double result = Mz / Qp;
+            Console.WriteLine(String.Format("Мє=Мз/Qр={0}/{1}={2}", Mz, Qp, result));
+            return result;
         }
         /// <summary>
         /// загальна сума матерiальних затрат
@@ -282,7 +297,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getMz(double Mc, double Bm)
         {
-            return Mc * Bm;
+            double result = Mc * Bm;
+            Console.WriteLine(String.Format("Мз=Мс*Вм={0}/{1}={2}", Mc, Bm, result));
+            return result;
         }
         /// <summary>
         /// матерiаловiддача
@@ -292,7 +309,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getMv(double Qp, double Mz)
         {
-            return Qp / Mz;
+            double result = Qp / Mz;
+            Console.WriteLine(String.Format("Мв=Qр/Мз={0}/{1}={2}", Qp, Mz, result));
+            return result;
         }
         /// <summary>
         /// Коефiцiєнт використання матерiалiв (не може перевищувати 1)
@@ -307,7 +326,9 @@ namespace EconomicLab2
             {
                 sum += N[i] * q_ch;
             }
-            return sum/Mz;
+            double result = sum / Mz;
+            Console.WriteLine(String.Format("Квик.матер=Сумма(1:{0})(Ni*qч/Мз)/Мс={1}/{2}={3}", N.Length, sum, Mz, result));
+            return result;
         }
         /// <summary>
         /// коефiцiєнт оборотностi
@@ -317,7 +338,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getKob(double Qp, double Snoz)
         {
-            return Qp / Snoz;
+            double result = Qp / Snoz;
+            Console.WriteLine(String.Format("Коб=Qр/Sноз={0}/{1}={2}", Qp, Snoz, result));
+            return result;
         }
         /// <summary>
         /// Обсяг реалiзованої продукцiї пiдприємства
@@ -332,6 +355,7 @@ namespace EconomicLab2
             {
                 sum += Cost[i] * N[i];
             }
+            Console.WriteLine(String.Format("сумма(1:{0})Цi*Ni={1}", Cost.Length, sum));
             return sum;
 
         }
@@ -344,7 +368,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getKzav(double Snoz,double Qp)
         {
-            return Snoz / Qp;
+            double result = Snoz / Qp;
+            Console.WriteLine(String.Format("Kзав=Sноз/Qр={0}/{1}={2}", Snoz, Qp,result));
+            return result;
         }
         /// <summary>
         /// тривалiсть одного обороту − показує тривалiсть одного обороту оборотних коштiв, у днях
@@ -353,7 +379,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getTob (double Kob)
         {
-            return 360 / Kob;
+            double result = 360 / Kob;
+            Console.WriteLine(String.Format("Kзав=360/Koб=360/{0}={1}", Kob, result));
+            return result;
         }
         /// <summary>
         /// Абсолютне вивiльнення (у грошових одиницях) оборотних засобiв
@@ -363,7 +391,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getVOZA (double Qpf, double deltaScor)
         {
-            return Qpf / 360 * deltaScor;
+            double result = Qpf / 360 * deltaScor;
+            Console.WriteLine(String.Format("ВОЗа=Qр.ф/360*дельта.скор={0}/360*{1}={2}", Qpf, deltaScor, result));
+            return result;
         }
         /// <summary>
         /// кiлькiсть днiв скорочення перiоду обороту оборотних засобiв, днiв
@@ -373,7 +403,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getDeltaScor(double Tob_f, double Tob_plan)
         {
-            return Tob_f - Tob_plan;
+            double result = Math.Abs(Tob_f - Tob_plan);
+            Console.WriteLine(String.Format("дельта.скор=Tоб.ф-Тоб.пл={0}-{1}={2}", Tob_f, Tob_plan, result));
+            return result;
         }
         /// <summary>
         /// Вiдносне вивiльнення (у вiдсотках) оборотних засобiв
@@ -383,7 +415,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getVOZV(double Qp_pl,double Qp_fact)
         {
-            return 100 - Qp_pl / Qp_fact * 100;
+            double result = 100 - Qp_pl / Qp_fact * 100;
+            Console.WriteLine(String.Format("ВОЗа=100%-Qр.пл/Qр.ф.*100%=100%-{0}/{1}*100%={2}", Qp_pl, Qp_fact, result));
+            return result;
         }
         /// <summary>
         /// Норма запасу оборотних фондiв у незавершеному виробництвi 
@@ -395,7 +429,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getHnv(double Ci, double N, double Tc,double Knv)
         {
-            return Ci * N * Tc * Knv / 360;
+            double result = Ci * N * Tc * Knv / 360;
+            Console.WriteLine(String.Format("Нн.в=(Ci*Ni*Tц*Kн.в)/360=({0}*{1}*{2}*{3})/360={4}", Ci, N, Tc, Knv, result));
+            return result;
         }
         /// <summary>
         /// Коефiцiєнт наростання витрат
@@ -405,7 +441,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getKnv(double Co, double Cn)
         {
-            return (Co + 0.5 * Cn) / (Co + Cn);
+            double result = (Co + 0.5 * Cn) / (Co + Cn);
+            Console.WriteLine(String.Format("Кн.в=(Со+0.5*Cn)/(Co+Cn)=({0}+0.5*{1})/({0}+{1})={2}", Co, Cn,result));
+            return result;
         }
         /// <summary>
         /// Повна собiвартiсть всiєї партiї продукцiї
@@ -415,7 +453,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getCvp(double Co,double Cn)
         {
-            return Co + Cn;
+            double result = Co + Cn;
+            Console.WriteLine(String.Format("Св.п=Со+Сn={0}+{1}={2}", Co, Cn, result));
+            return result;
         }
         /// <summary>
         /// 
@@ -425,7 +465,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getCvp(double Cod, int N)
         {
-            return Cod * N;
+            double result = Cod * N;
+           
+            return result;
         }
         /// <summary>
         /// сума поточних витрат у собiвартостi всiєї партiї виробiв
@@ -435,7 +477,9 @@ namespace EconomicLab2
         /// <returns></returns>
         static double getCp(double Cvp, double Co)
         {
-            return Cvp - Co;
+            double result = Cvp - Co;
+            Console.WriteLine(String.Format("Сп=Св.п-Со={0}-{1}={2}", Cvp, Co, result));
+            return result;
         }
     }
 }
