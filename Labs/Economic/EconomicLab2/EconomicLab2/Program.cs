@@ -104,38 +104,47 @@ namespace EconomicLab2
 
             // Повна собiвартiсть всiєї партiї продукцiї
             Console.WriteLine("Повна собiвартiсть всiєї партiї продукцiї:");
-            double[] Cvp = new double[Ci.Length];
-            for (int i = 0; i < Cvp.Length; i++)
+            double[] Cvp_f = new double[Ci.Length];
+            double[] Cvp_pl = new double[Ci.Length];
+            for (int i = 0; i < Cvp_f.Length; i++)
             {
-                Cvp[i] = getCvp(Co[i], Ci[i]);
-                Console.WriteLine(characters[i]+":" + Cvp[i]);
+                Cvp_f[i] = getCvp(Ci[i],(int)Nfact[i]);
+                Cvp_pl[i] = getCvp(Ci[i], (int)Npl[i]);
+                Console.WriteLine(characters[i]+"(фактична):" + Cvp_f[i]);
+                Console.WriteLine(characters[i] + "(планова):" + Cvp_pl[i]);
             }
 
 
             // сума поточних витрат у собiвартостi всiєї партiї виробiв
             Console.WriteLine("сума поточних витрат у собiвартостi всiєї партiї виробiв:");
-            double[] Cp = new double[Co.Length];
-            for (int i = 0; i < Cvp.Length; i++)
+            double[] Cp_f = new double[Co.Length];
+            double[] Cp_pl = new double[Co.Length];
+            for (int i = 0; i < Cvp_f.Length; i++)
             {
-                Cp[i] = getCp(Cvp[i], Co[i]);
-                Console.WriteLine(characters[i] + ":" + Cp[i]);
+                Cp_f[i] = getCp(Cvp_f[i], Co[i]);
+                Cp_pl[i] = getCp(Cvp_pl[i], Co[i]);
+                Console.WriteLine(characters[i] + "(фактична):" + Cp_f[i]);
+                Console.WriteLine(characters[i] + "(планова):" + Cp_pl[i]);
             }
             //Коефiцiєнт наростання витрат
             Console.WriteLine("сума поточних витрат у собiвартостi всiєї партiї виробiв:");
-            double[] knv = new double[Co.Length];
-            for (int i = 0; i < knv.Length; i++)
+            double[] knv_f = new double[Co.Length];
+            double[] knv_pl = new double[Co.Length];
+            for (int i = 0; i < knv_f.Length; i++)
             {
-                knv[i] = getKnv(Co[i], Cp[i]);
-                Console.WriteLine(characters[i] + ":" + knv[i]);
+                knv_f[i] = getKnv(Co[i], Cp_f[i]);
+                knv_pl[i] = getKnv(Co[i], Cp_pl[i]);
+                Console.WriteLine(characters[i] + ":(фактично)" + knv_f[i]);
+                Console.WriteLine(characters[i] + ":(планово)" + knv_pl[i]);
             }
             // Норма запасу оборотних фондiв у незавершеному виробництвi
-            double[] Hnv_pl = new double[Cvp.Length];
-            double[] Hnv_fact = new double[Cvp.Length];
+            double[] Hnv_pl = new double[Cvp_f.Length];
+            double[] Hnv_fact = new double[Cvp_f.Length];
             Console.WriteLine("Норма запасу оборотних фондiв у незавершеному виробництвi:");
-            for (int i = 0; i < Cvp.Length; i++)
+            for (int i = 0; i < Cvp_f.Length; i++)
             {
-                Hnv_pl[i] = getHnv(Cvp[i], Npl_all, Tc[i], knv[i]);
-                Hnv_fact[i] = getHnv(Cvp[i], Nfact_all, Tc[i], knv[i]);
+                Hnv_pl[i] = getHnv(Ci[i], Npl[i], Tc[i], knv_pl[i]);
+                Hnv_fact[i] = getHnv(Ci[i], Nfact[i], Tc[i], knv_f[i]);
                 Console.WriteLine(String.Format("{0}:Планова:{1}\tФактична:{2}",characters[i],
                     Hnv_pl[i], Hnv_fact[i]));
             }
@@ -144,46 +153,36 @@ namespace EconomicLab2
             double kZav_plan = getKzav(Snoz_pl, Qp_plan);
             Console.WriteLine(String.Format("коефiцiєнт завантаження:\nПлановий:{0}\nФактичний:{1}", kZav_plan, kZav_fact));
             //загальна сума матерiальних затрат
-            Console.WriteLine("загальна сума матерiальних затрат:");
-            double[] Mz = new double[costs.Length];
-            for (int i = 0; i < Mz.Length; i++)
-            {
-                Mz[i] = getMz(Mpl, costs[i]);
-                Console.WriteLine(characters[i] + ":" + Mz[i]);
-            }
-            //матерiалоємнiсть 
-            Console.WriteLine("Матерiалоємнiсть:");
-            double[] Me_fact = new double[Mz.Length];
-            double[] Me_plan = new double[Mz.Length];
-            for (int i = 0; i < Mz.Length; i++)
-            {
-                Me_fact[i] = getMe(Mz[i], Qp_fact);
-                Me_plan[i] = getMe(Mz[i], Qp_plan);
-                Console.WriteLine(String.Format("{0}:Планова:{1}\tФактична:{2}",characters[i],Me_plan[i], Me_fact[i]));
-            }
+            
 
-            //Матерiаловiддача
-            Console.WriteLine("Матерiаловiддача:");
-            double[] Mv_fact = new double[Mz.Length];
-            double[] Mv_plan = new double[Mz.Length];
+     
+            double Mz_f_total =  getMz(Mfact, Bm);
+            double Mz_pl_total = getMz(Mpl, Bm);  
+            Console.Write("загальна сума матерiальних затрат:");
+            Console.Write( "Мє.ф:" + Mz_f_total + "\t");
+            Console.WriteLine( "Мє.пл." + Mz_pl_total);
 
-            for (int i = 0; i < Mz.Length; i++)
-            {
-                Mv_fact[i] = getMv(Qp_fact, Mz[i]);
-                Mv_plan[i] = getMv(Qp_plan, Mz[i]);
-                Console.WriteLine(String.Format("{0}:Планова:{1}\tФактична:{2}", characters[i], Mv_plan[i], Mv_fact[i]));
-            }
+            //Загальна матерiалоємнiсть 
+            Console.Write("Загальна Матерiалоємнiсть:");
+            double Me_fact = getMe(Mz_f_total, Qp_fact);
+            double Me_plan = getMe(Mz_pl_total, Qp_plan);
+           
+                Console.WriteLine(String.Format("Планова:{0}\tФактична:{1}", Me_plan, Me_fact));
+          
+
+            //Загальна Матерiаловiддача
+            Console.Write("Загальна Матерiаловiддача:");
+ 
+               double Mv_fact = getMv(Qp_fact, Mz_f_total);
+                double Mv_plan = getMv(Qp_plan, Mz_pl_total);
+                Console.WriteLine(String.Format("Планова:{0}\tФактична:{1}", Mv_plan, Mv_fact));
+            
 
             //Коефiцiєнт використання матерiалiв (не може перевищувати 1)
             Console.WriteLine("Коефiцiєнт використання матерiалiв (не може перевищувати 1):");
-            double[] kvik_pl = new double[Npl.Length];
-            double[] kvik_fact = new double[Npl.Length];
-            for (int i = 0; i < Npl.Length; i++)
-            {
-                kvik_pl[i] = getKvikM(Npl, qClear[i],Mz[i]);
-                kvik_fact[i] = getKvikM(Nfact, qClear[i],Mz[i]);
-                Console.WriteLine(String.Format("{0}:Планова:{1}\tФактична:{2}", characters[i], kvik_pl[i], kvik_fact[i]));
-            }
+            double kvik_pl = getKvikM(Npl, qClear, Mz_pl_total);
+            double kvik_fact = getKvikM(Nfact, qClear, Mz_f_total);
+                Console.WriteLine(String.Format("Плановий:{0}\tФактичний:{1}", kvik_pl, kvik_fact));
             Console.ReadKey(false);
 
             //double D_pl = getD(1);
@@ -319,12 +318,12 @@ namespace EconomicLab2
         /// <param name="N">обсяг випуску виробу у натуральному вираженнi</param>
         /// <param name="q_ch">чиста маса (площа) виробу у натуральному вираженнi, кг (м2)</param>
         /// <returns></returns>
-        static double getKvikM(double[] N,double q_ch,double Mz)
+        static double getKvikM(double[] N,double[] q_ch,double Mz)
         {
             double sum = 0;
             for (int i = 0; i < N.Length; i++)
             {
-                sum += N[i] * q_ch;
+                sum += N[i] * q_ch[i];
             }
             double result = sum / Mz;
             Console.WriteLine(String.Format("Квик.матер=Сумма(1:{0})(Ni*qч/Мз)/Мс={1}/{2}={3}", N.Length, sum, Mz, result));
@@ -451,12 +450,12 @@ namespace EconomicLab2
         /// <param name="Co">сума одноразових витрат у собiвартостi виробу</param>
         /// <param name="Cn">сума поточних витрат у собiвартостi всiєї партiї виробiв</param>
         /// <returns></returns>
-        static double getCvp(double Co,double Cn)
+        /*static double getCvp(double Co,double Cn)
         {
             double result = Co + Cn;
             Console.WriteLine(String.Format("Св.п=Со+Сn={0}+{1}={2}", Co, Cn, result));
             return result;
-        }
+        }*/
         /// <summary>
         /// 
         /// </summary>
@@ -466,7 +465,7 @@ namespace EconomicLab2
         static double getCvp(double Cod, int N)
         {
             double result = Cod * N;
-           
+            Console.WriteLine(String.Format("Св.п=Со.д*N={0}*{1}={2}", Cod, N, result));
             return result;
         }
         /// <summary>
