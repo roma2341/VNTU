@@ -44,7 +44,7 @@ namespace EconomicLab3
           double Ksp = getKsp(Fn, Fdd);//коефiцiєнт списковостi, який показує вiдсоток працюючих, якi не зявилися на роботу
             System.Console.WriteLine("коефiцiєнт списковостi:" + Ksp);
             double ChYav_or_plr = getChYav_or_plr(Ch_or_pl_r, Ksp);
-            System.Console.WriteLine("Середньявочна чисельнiсть основних робiтникiв у плановому роцi:{0:0.###}",Ksp);
+            System.Console.WriteLine("Середньявочна чисельнiсть основних робiтникiв у плановому роцi:{0:0.###}", ChYav_or_plr);
             double Ch_vsih_plr = getChVsih_plr(Ch_or_pl_r, Ch_dop_pl_r);
             System.Console.WriteLine("Середньоспискова чисельнiсть всiх робiтникiв у плановому роцi:{0:0.###}",Ch_vsih_plr);
             double Chk = getChK(Ch_vsih_plr, Chp);
